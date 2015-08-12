@@ -25,18 +25,17 @@
 package org.spongepowered.common.data.key;
 
 import static org.spongepowered.api.data.DataQuery.of;
+import static org.spongepowered.api.data.key.KeyFactory.makeListKey;
+import static org.spongepowered.api.data.key.KeyFactory.makeSingleKey;
 
 import com.google.common.collect.MapMaker;
-import org.spongepowered.api.data.DataQuery;
 import org.spongepowered.api.data.key.Key;
 import org.spongepowered.api.data.key.Keys;
 import org.spongepowered.api.data.type.Career;
-import org.spongepowered.api.data.value.BaseValue;
 import org.spongepowered.api.data.value.mutable.MutableBoundedValue;
 import org.spongepowered.api.data.value.mutable.Value;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.util.Axis;
-import org.spongepowered.common.data.key.SpongeKey;
 import org.spongepowered.common.registry.RegistryHelper;
 
 import java.awt.Color;
@@ -48,19 +47,15 @@ public class KeyRegistry {
     private static final Map<String, Key<?>> keyMap = new MapMaker().concurrencyLevel(4).makeMap();
 
     public static void registerKeys() {
-        keyMap.put("AXIS", makeKey(Axis.class, Value.class, of("Axis")));
-        keyMap.put("COLOR", makeKey(Color.class, Value.class, of("Color")));
-        keyMap.put("HEALTH", makeKey(Double.class, MutableBoundedValue.class, of("Health")));
-        keyMap.put("MAX_HEALTH", makeKey(Double.class, MutableBoundedValue.class, of("MaxHealth")));
-        keyMap.put("SHOWS_DISPLAY_NAME", makeKey(Boolean.class, Value.class, of("ShowDisplayName")));
-        keyMap.put("DISPLAY_NAME", makeKey(Text.class, Value.class, of("DisplayName")));
-        keyMap.put("CAREER", makeKey(Career.class, Value.class, of("Career")));
+        keyMap.put("AXIS", makeSingleKey(Axis.class, Value.class, of("Axis")));
+        keyMap.put("COLOR", makeSingleKey(Color.class, Value.class, of("Color")));
+        keyMap.put("HEALTH", makeSingleKey(Double.class, MutableBoundedValue.class, of("Health")));
+        keyMap.put("MAX_HEALTH", makeSingleKey(Double.class, MutableBoundedValue.class, of("MaxHealth")));
+        keyMap.put("SHOWS_DISPLAY_NAME", makeSingleKey(Boolean.class, Value.class, of("ShowDisplayName")));
+        keyMap.put("DISPLAY_NAME", makeSingleKey(Text.class, Value.class, of("DisplayName")));
+        keyMap.put("CAREER", makeSingleKey(Career.class, Value.class, of("Career")));
+        keyMap.put("SIGN_LINES", makeListKey(Text.class, of("SignLines")));
         RegistryHelper.mapFields(Keys.class, keyMap);
-    }
-
-    private static <E, V extends BaseValue<E>> Key<V> makeKey(final Class<E> elementClass, final Class<V> valueClass,
-            final DataQuery query) {
-        return new SpongeKey<E, V>(elementClass, valueClass, query);
     }
 
 }

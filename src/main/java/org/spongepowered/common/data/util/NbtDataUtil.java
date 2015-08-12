@@ -22,29 +22,26 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.spongepowered.common.data;
+package org.spongepowered.common.data.util;
 
-import com.google.common.base.Optional;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.util.BlockPos;
-import net.minecraft.world.World;
-import org.spongepowered.api.block.BlockState;
-import org.spongepowered.api.data.DataTransactionResult;
-import org.spongepowered.api.data.manipulator.DataManipulator;
-import org.spongepowered.api.data.manipulator.ImmutableDataManipulator;
+public class NbtDataUtil {
 
-public interface BlockDataProcessor<T extends ImmutableDataManipulator<T, ?>> {
+    // These are the various tag compound id's for getting to various places
+    public static final String BLOCK_ENTITY_TAG = "BlockEntityTag";
+    public static final String BLOCK_ENTITY_ID = "id";
+    public static final String SIGN = "Sign";
 
-    Optional<T> fromBlockPos(World world, BlockPos blockPos);
-
-    DataTransactionResult setData(World world, BlockPos blockPos, T manipulator);
-
-    Optional<BlockState> withData(IBlockState blockState, T manipulator);
-
-    boolean remove(World world, BlockPos blockPos);
-
-    Optional<BlockState> removeFrom(IBlockState blockState);
-
-    Optional<T> createFrom(IBlockState blockState);
-
+    // These are the NBT Tag byte id's that can be used in various places while manipulating compound tags
+    public static final byte TAG_END = 0;
+    public static final byte TAG_BYTE = 1;
+    public static final byte TAG_SHORT = 2;
+    public static final byte TAG_INT = 3;
+    public static final byte TAG_LONG = 4;
+    public static final byte TAG_FLOAT = 5;
+    public static final byte TAG_DOUBLE = 6;
+    public static final byte TAG_BYTE_ARRAY = 7;
+    public static final byte TAG_STRING = 8;
+    public static final byte TAG_LIST = 9;
+    public static final byte TAG_COMPOUND = 10;
+    public static final byte TAG_INT_ARRAY = 11;
 }
